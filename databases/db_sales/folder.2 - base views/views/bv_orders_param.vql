@@ -1,0 +1,50 @@
+﻿CREATE OR REPLACE WRAPPER JDBC bv_orders_param
+    FOLDER = '/2 - base views'
+    DATASOURCENAME=ds_production
+    SQLSENTENCE='SELECT t0.order_id, t0.customer_id, t0.order_status, t0.order_date, 
+t0.required_date, t0.shipped_date, t0.store_id, t0.staff_id FROM 
+denodo_test.sales.orders t0 WHERE customer_id = @input_customer'   
+    OUTPUTSCHEMA (
+        order_id = 'order_id' :'java.lang.Integer' (sourcetypedecimals='0', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE NOT UPDATEABLE,
+        customer_id = 'customer_id' :'java.lang.Integer' (sourcetypedecimals='0', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  SORTABLE NOT UPDATEABLE,
+        order_status = 'order_status' :'java.lang.Integer' (sourcetypedecimals='0', sourcetypesize='3', sourcetypeid='-6', sourcetypename='tinyint')  NOT NULL SORTABLE NOT UPDATEABLE,
+        order_date = 'order_date' :'java.time.LocalDate' (sourcetypedecimals='0', sourcetypesize='10', sourcetypeid='91', sourcetypename='date')  NOT NULL SORTABLE NOT UPDATEABLE,
+        required_date = 'required_date' :'java.time.LocalDate' (sourcetypedecimals='0', sourcetypesize='10', sourcetypeid='91', sourcetypename='date')  NOT NULL SORTABLE NOT UPDATEABLE,
+        shipped_date = 'shipped_date' :'java.time.LocalDate' (sourcetypedecimals='0', sourcetypesize='10', sourcetypeid='91', sourcetypename='date')  SORTABLE NOT UPDATEABLE,
+        store_id = 'store_id' :'java.lang.Integer' (sourcetypedecimals='0', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE NOT UPDATEABLE,
+        staff_id = 'staff_id' :'java.lang.Integer' (sourcetypedecimals='0', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE NOT UPDATEABLE,
+        input_customer = 'INPUT_CUSTOMER' :'java.lang.String' (OBL) (DEFAULTVALUE='1')  EXTERN SORTABLE
+    );
+
+CREATE OR REPLACE TABLE bv_orders_param I18N us_pst (
+        order_id:int (notnull, sourcetypeid = '4', sourcetypedecimals = '0', sourcetypesize = '10'),
+        customer_id:int (sourcetypeid = '4', sourcetypedecimals = '0', sourcetypesize = '10'),
+        order_status:int (notnull, sourcetypeid = '-6', sourcetypedecimals = '0', sourcetypesize = '3'),
+        order_date:localdate (notnull, sourcetypeid = '91', sourcetypedecimals = '0', sourcetypesize = '10'),
+        required_date:localdate (notnull, sourcetypeid = '91', sourcetypedecimals = '0', sourcetypesize = '10'),
+        shipped_date:localdate (sourcetypeid = '91', sourcetypedecimals = '0', sourcetypesize = '10'),
+        store_id:int (notnull, sourcetypeid = '4', sourcetypedecimals = '0', sourcetypesize = '10'),
+        staff_id:int (notnull, sourcetypeid = '4', sourcetypedecimals = '0', sourcetypesize = '10'),
+        input_customer:text (extern)
+    )
+    FOLDER = '/2 - base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_orders_param(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD order_id NOS ZERO ()
+             ADD customer_id NOS ZERO ()
+             ADD order_status NOS ZERO ()
+             ADD order_date NOS ZERO ()
+             ADD required_date NOS ZERO ()
+             ADD shipped_date NOS ZERO ()
+             ADD store_id NOS ZERO ()
+             ADD staff_id NOS ZERO ()
+             ADD input_customer (=) OBL ONE
+        )
+        OUTPUTLIST (customer_id, order_date, order_id, order_status, required_date, shipped_date, staff_id, store_id
+        )
+        WRAPPER (jdbc bv_orders_param)
+    );
+

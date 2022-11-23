@@ -1,0 +1,8 @@
+﻿/databases/db_sales/folder.3 - integration views/3 - integration views.vql
+/databases/db_sales/folder.2 - base views/2 - base views.vql
+/databases/db_sales/folder.1 - data sources/1 - data sources.vql
+/databases/db_sales/folder.1 - data sources/datasources/jdbc/ds_sales.vql
+/databases/db_sales/folder.2 - base views/views/bv_ss_order_items.vql
+/databases/db_sales/folder.3 - integration views/views/iv_ss_order_items_tp.vql
+/databases/db_sales/folder.1 - data sources/datasources/jdbc/ds_production.vql
+/databases/db_sales/folder.2 - base views/views/bv_pr_products.vql

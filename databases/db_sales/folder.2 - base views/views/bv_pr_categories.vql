@@ -1,0 +1,33 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_pr_categories
+    FOLDER = '/2 - base views'
+    DATASOURCENAME=ds_production
+    CATALOGNAME='${databases.db_sales.folder.2 - base views.views.jdbc.bv_pr_categories.CATALOGNAME}' 
+    SCHEMANAME='${databases.db_sales.folder.2 - base views.views.jdbc.bv_pr_categories.SCHEMANAME}' 
+    RELATIONNAME='categories' 
+    OUTPUTSCHEMA (
+        category_id = 'category_id' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int identity')  NOT NULL SORTABLE IS_AUTOINCREMENT,
+        category_name = 'category_name' :'java.lang.String' (OPT) (sourcetypesize='255', sourcetypeid='12', sourcetypename='varchar')  NOT NULL SORTABLE
+    )
+    CONSTRAINT 'PK__categori__D54EE9B46E7F431A' PRIMARY KEY ( 'category_id' )
+    INDEX 'PK__categori__D54EE9B46E7F431A' CLUSTER UNIQUE PRIMARY ( 'category_id' );
+
+CREATE OR REPLACE TABLE bv_pr_categories I18N us_pst (
+        category_id:int (notnull, autoincrement, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        category_name:text (notnull, sourcetypeid = '12', sourcetypesize = '255')
+    )
+    FOLDER = '/2 - base views'
+    CONSTRAINT 'PK__categori__D54EE9B46E7F431A' PRIMARY KEY ( 'category_id' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_pr_categories(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD category_id (any) OPT ANY
+             ADD category_name (any) OPT ANY
+        )
+        OUTPUTLIST (category_id, category_name
+        )
+        WRAPPER (jdbc bv_pr_categories)
+    );
+

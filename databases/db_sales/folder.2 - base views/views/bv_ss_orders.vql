@@ -1,0 +1,57 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_ss_orders
+    FOLDER = '/2 - base views'
+    DATASOURCENAME=ds_sales
+    CATALOGNAME='${databases.db_sales.folder.2 - base views.views.jdbc.bv_ss_orders.CATALOGNAME}' 
+    SCHEMANAME='${databases.db_sales.folder.2 - base views.views.jdbc.bv_ss_orders.SCHEMANAME}' 
+    RELATIONNAME='orders' 
+    OUTPUTSCHEMA (
+        order_id = 'order_id' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int identity')  NOT NULL SORTABLE IS_AUTOINCREMENT,
+        customer_id = 'customer_id' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  SORTABLE,
+        order_status = 'order_status' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='3', sourcetypeid='-6', sourcetypename='tinyint')  NOT NULL SORTABLE,
+        order_date = 'order_date' :'java.time.LocalDate' (OPT) (sourcetypedecimals='0', sourcetypesize='10', sourcetypeid='91', sourcetypename='date')  NOT NULL SORTABLE,
+        required_date = 'required_date' :'java.time.LocalDate' (OPT) (sourcetypedecimals='0', sourcetypesize='10', sourcetypeid='91', sourcetypename='date')  NOT NULL SORTABLE,
+        shipped_date = 'shipped_date' :'java.time.LocalDate' (OPT) (sourcetypedecimals='0', sourcetypesize='10', sourcetypeid='91', sourcetypename='date')  SORTABLE,
+        store_id = 'store_id' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE,
+        staff_id = 'staff_id' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE
+    )
+    CONSTRAINT 'PK__orders__46596229B5243928' PRIMARY KEY ( 'order_id' )
+    CONSTRAINT 'FK__orders__customer__34C8D9D1' FOREIGN KEY ( 'customer_id' ) 
+    REFERENCES 'denodo_test'.'sales'.'customers'( 'customer_id' )  ON UPDATE CASCADE  ON DELETE CASCADE NOT DEFERRABLE 
+    CONSTRAINT 'FK__orders__staff_id__36B12243' FOREIGN KEY ( 'staff_id' ) 
+    REFERENCES 'denodo_test'.'sales'.'staffs'( 'staff_id' )  ON UPDATE RESTRICT  ON DELETE RESTRICT NOT DEFERRABLE 
+    CONSTRAINT 'FK__orders__store_id__35BCFE0A' FOREIGN KEY ( 'store_id' ) 
+    REFERENCES 'denodo_test'.'sales'.'stores'( 'store_id' )  ON UPDATE CASCADE  ON DELETE CASCADE NOT DEFERRABLE 
+    INDEX 'PK__orders__46596229B5243928' CLUSTER UNIQUE PRIMARY ( 'order_id' );
+
+CREATE OR REPLACE TABLE bv_ss_orders I18N us_pst (
+        order_id:int (notnull, autoincrement, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        customer_id:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        order_status:int (notnull, sourcetypeid = '-6', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '3'),
+        order_date:localdate (notnull, sourcetypeid = '91', sourcetypedecimals = '0', sourcetypesize = '10'),
+        required_date:localdate (notnull, sourcetypeid = '91', sourcetypedecimals = '0', sourcetypesize = '10'),
+        shipped_date:localdate (sourcetypeid = '91', sourcetypedecimals = '0', sourcetypesize = '10'),
+        store_id:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        staff_id:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10')
+    )
+    FOLDER = '/2 - base views'
+    CONSTRAINT 'PK__orders__46596229B5243928' PRIMARY KEY ( 'order_id' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_ss_orders(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD order_id (any) OPT ANY
+             ADD customer_id (any) OPT ANY
+             ADD order_status (any) OPT ANY
+             ADD order_date (any) OPT ANY
+             ADD required_date (any) OPT ANY
+             ADD shipped_date (any) OPT ANY
+             ADD store_id (any) OPT ANY
+             ADD staff_id (any) OPT ANY
+        )
+        OUTPUTLIST (customer_id, order_date, order_id, order_status, required_date, shipped_date, staff_id, store_id
+        )
+        WRAPPER (jdbc bv_ss_orders)
+    );
+

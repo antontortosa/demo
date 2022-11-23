@@ -1,0 +1,6 @@
+﻿CREATE OR REPLACE ASSOCIATION bv_pr_brands_bv_pr_products REFERENTIAL CONSTRAINT 
+FOLDER = '/5 - associations'
+    ENDPOINT bv_pr_products bv_pr_brands PRINCIPAL (0,1)
+    ENDPOINT bv_pr_brands bv_pr_products (0,*)
+    ADD MAPPING brand_id=brand_id;
+

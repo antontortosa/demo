@@ -1,0 +1,6 @@
+﻿CREATE OR REPLACE VIEW iv_ss_order_items_tp FOLDER = '/3 - integration views'
+    PRIMARY KEY ( 'order_id' , 'item_id' ) AS SELECT bv_ss_order_items.order_id AS order_id, bv_ss_order_items.item_id AS item_id, bv_ss_order_items.product_id AS product_id, bv_ss_order_items.quantity AS quantity, bv_ss_order_items.list_price AS list_price, bv_ss_order_items.discount AS discount, ((bv_ss_order_items.quantity*bv_ss_order_items.list_price)*(1-bv_ss_order_items.discount)) AS total_price_item FROM bv_ss_order_items;
+
+ALTER VIEW iv_ss_order_items_tp
+ LAYOUT (bv_ss_order_items = [20, 20, 215, 145]);
+

@@ -1,0 +1,6 @@
+﻿CREATE OR REPLACE ASSOCIATION bv_ss_orders_bv_ss_order_items REFERENTIAL CONSTRAINT 
+FOLDER = '/5 - associations'
+    ENDPOINT bv_ss_order_items bv_ss_orders PRINCIPAL (0,1)
+    ENDPOINT bv_ss_orders bv_ss_order_items (0,*)
+    ADD MAPPING order_id=order_id;
+

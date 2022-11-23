@@ -1,0 +1,5 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+UNDEPLOY IF EXISTS WEBSERVICE sales_per_brand;
+
+DEPLOY WEBSERVICE sales_per_brand LOGIN = '${databases.db_sales.webcontainer.webservices.sales_per_brand.LOGIN}' PASSWORD = '${databases.db_sales.webcontainer.webservices.sales_per_brand.PASSWORD}' ${databases.db_sales.webcontainer.webservices.sales_per_brand.PASSWORD.ENCRYPTED};
+

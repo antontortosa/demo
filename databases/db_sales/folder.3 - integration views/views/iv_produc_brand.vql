@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW iv_produc_brand FOLDER = '/3 - integration views' AS SELECT bv_pr_products.product_id AS product_id, bv_pr_products.product_name AS product_name, bv_pr_products.brand_id AS brand_id, bv_pr_products.category_id AS category_id, bv_pr_products.model_year AS model_year, bv_pr_products.list_price AS list_price, bv_pr_brands.brand_name AS brand_name FROM bv_pr_products AS bv_pr_products INNER JOIN bv_pr_brands AS bv_pr_brands ON bv_pr_products.brand_id = bv_pr_brands.brand_id ;
+
+ALTER VIEW iv_produc_brand
+ LAYOUT (bv_pr_products = [20, 20, 200, 145], bv_pr_brands = [290, 40, 200, 65]);
+

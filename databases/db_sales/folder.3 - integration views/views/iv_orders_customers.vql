@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW iv_orders_customers FOLDER = '/3 - integration views' AS SELECT bv_ss_orders.order_id AS order_id, bv_ss_orders.customer_id AS customer_id, bv_ss_orders.order_status AS order_status, bv_ss_orders.order_date AS order_date, bv_ss_orders.required_date AS required_date, bv_ss_orders.shipped_date AS shipped_date, bv_ss_orders.store_id AS store_id, bv_ss_orders.staff_id AS staff_id, bv_ss_customers.first_name AS first_name, bv_ss_customers.last_name AS last_name, bv_ss_customers.phone AS phone, bv_ss_customers.email AS email, bv_ss_customers.street AS street, bv_ss_customers.city AS city, bv_ss_customers.state AS state, bv_ss_customers.zip_code AS zip_code FROM bv_ss_orders AS bv_ss_orders INNER JOIN bv_ss_customers AS bv_ss_customers ON bv_ss_orders.customer_id = bv_ss_customers.customer_id ;
+
+ALTER VIEW iv_orders_customers
+ LAYOUT (bv_ss_orders = [80, 100, 200, 185], bv_ss_customers = [400, 110, 200, 205]);
+

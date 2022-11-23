@@ -1,0 +1,6 @@
+﻿CREATE OR REPLACE ASSOCIATION bv_pr_categories_bv_pr_products REFERENTIAL CONSTRAINT 
+FOLDER = '/5 - associations'
+    ENDPOINT bv_pr_products bv_pr_categories PRINCIPAL (0,1)
+    ENDPOINT bv_pr_categories bv_pr_products (0,*)
+    ADD MAPPING category_id=category_id;
+

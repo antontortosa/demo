@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW iv_order_order_items FOLDER = '/3 - integration views' AS SELECT bv_ss_orders.order_id AS order_id, bv_ss_orders.customer_id AS customer_id, bv_ss_orders.order_status AS order_status, bv_ss_orders.order_date AS order_date, bv_ss_orders.required_date AS required_date, bv_ss_orders.shipped_date AS shipped_date, bv_ss_orders.store_id AS store_id, bv_ss_orders.staff_id AS staff_id, iv_ss_order_items_tp.item_id AS item_id, iv_ss_order_items_tp.product_id AS product_id, iv_ss_order_items_tp.quantity AS quantity, iv_ss_order_items_tp.list_price AS list_price, iv_ss_order_items_tp.discount AS discount, iv_ss_order_items_tp.total_price_item AS total_price_item FROM bv_ss_orders AS bv_ss_orders INNER JOIN iv_ss_order_items_tp AS iv_ss_order_items_tp ON bv_ss_orders.order_id = iv_ss_order_items_tp.order_id ;
+
+ALTER VIEW iv_order_order_items
+ LAYOUT (bv_ss_orders = [130, 130, 200, 185], iv_ss_order_items_tp = [450, 140, 200, 165]);
+

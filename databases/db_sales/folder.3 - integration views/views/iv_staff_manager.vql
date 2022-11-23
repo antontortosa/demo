@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW iv_staff_manager FOLDER = '/3 - integration views' AS SELECT bv_ss_staffs.staff_id AS staff_id, bv_ss_staffs.first_name AS first_name, bv_ss_staffs.last_name AS last_name, bv_ss_staffs.email AS email, bv_ss_staffs.phone AS phone, bv_ss_staffs.active AS active, bv_ss_staffs.store_id AS store_id, bv_ss_staffs.manager_id AS manager_id, bv_ss_staffs1.first_name AS manager_first_name, bv_ss_staffs1.last_name AS manager_last_name, bv_ss_staffs1.email AS manager_email, bv_ss_staffs1.phone AS manager_phone, bv_ss_staffs1.active AS manager_active, bv_ss_staffs1.store_id AS manager_store_id FROM bv_ss_staffs AS bv_ss_staffs LEFT OUTER JOIN bv_ss_staffs AS bv_ss_staffs1 ON bv_ss_staffs.manager_id = bv_ss_staffs1.staff_id ;
+
+ALTER VIEW iv_staff_manager
+ LAYOUT (bv_ss_staffs = [110, 110, 200, 185], bv_ss_staffs = [460, 120, 200, 185]);
+

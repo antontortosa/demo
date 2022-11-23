@@ -1,0 +1,6 @@
+﻿/databases/db_sales/folder.5 - associations/5 - associations.vql
+/databases/db_sales/folder.2 - base views/2 - base views.vql
+/databases/db_sales/folder.1 - data sources/1 - data sources.vql
+/databases/db_sales/folder.1 - data sources/datasources/jdbc/ds_sales.vql
+/databases/db_sales/folder.2 - base views/views/bv_ss_orders.vql
+/databases/db_sales/folder.2 - base views/views/bv_ss_order_items.vql

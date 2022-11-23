@@ -1,0 +1,6 @@
+﻿CREATE OR REPLACE ASSOCIATION bv_ss_stores_bv_ss_staffs REFERENTIAL CONSTRAINT 
+FOLDER = '/5 - associations'
+    ENDPOINT bv_ss_staffs bv_ss_stores PRINCIPAL (0,1)
+    ENDPOINT bv_ss_stores bv_ss_staffs (0,*)
+    ADD MAPPING store_id=store_id;
+

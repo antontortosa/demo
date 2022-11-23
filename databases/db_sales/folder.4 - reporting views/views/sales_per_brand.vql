@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW sales_per_brand FOLDER = '/4 - reporting views' AS SELECT brand_name AS brand_name, sum(total_price_item) AS total_sales FROM iv_orders_products_brand GROUP BY brand_name;
+
+ALTER VIEW sales_per_brand
+ LAYOUT (iv_orders_products_brand = [20, 20, 228, 265]);
+
